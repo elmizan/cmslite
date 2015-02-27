@@ -2,12 +2,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
-	public function index()
+	public function index($id=NULL)
 	{
-		$config['base_url'] = $this->config->site_url('index.php/welcome/index/');
+		$config['base_url'] =  base_url().'index.php/welcome/index/';
 		$config['total_rows'] = $this->db->count_all('article');;
 		$config['per_page'] = 7;
+		$config['num_links'] = 1;
 
+		/*styling the pagination */
 		$config['full_tag_open'] = "<ul class='pagination'>";
 		$config['full_tag_close'] ="</ul>";
 		$config['num_tag_open'] = '<li>';
@@ -22,28 +24,26 @@ class Welcome extends CI_Controller {
 		$config['first_tagl_close'] = "</li>";
 		$config['last_tag_open'] = "<li>";
 		$config['last_tagl_close'] = "</li>";
-
-		$data = [
-			'blog_entries' => $this->Article_model->get_last_fifteen_entries($config['per_page'], $this->uri->segment(3)),
-			'blog_title' => 'CMS Lite',
-			'menuitems' => [['link' => '', 'title' => 'Home'],
-							['link' => 'index.php/welcome/login', 'title' => 'Login'],
-							],
-				];
+		/*end of styling the pagination */
 
 		$this->pagination->initialize($config);
+
+		$data = [
+			'blog_entries' => $this->Article_model->get_last_fifteen_entries($config['per_page'], $id),
+			'menuitems' => [['link' => 'index.php/welcome/login', 'title' => 'Login']],
+			'halaman' => $this->pagination->create_links()
+				];
+
 		$this->parser->parse('header', $data);
 		$this->parser->parse('welcome_message', $data);
-		$this->load->view('footer', $data);
+		$this->load->view('footer');
 	}
 
 	 public function detail($id)
 	{
     	$detail = $this->Article_model->get_detail($id);		
 		$data = [
-			'blog_title' => 'CMS Lite',
-			'menuitems' => [['link' => '', 'title' => 'Home'],
-							['link' => 'index.php/welcome/login', 'title' => 'Login'],
+			'menuitems' => [['link' => 'index.php/welcome/login', 'title' => 'Login'],
 							],
 				];
 
@@ -55,9 +55,7 @@ class Welcome extends CI_Controller {
 	public function login()
 	{
 		$data = [
-			'blog_title' => 'CMS Lite | Login Form',
-			'menuitems' => [['link' => '', 'title' => 'Home'],
-							['link' => 'index.php/welcome/login', 'title' => 'Login'],
+			'menuitems' => [['link' => 'index.php/welcome/login', 'title' => 'Login'],
 							],
 				];
 
@@ -66,4 +64,5 @@ class Welcome extends CI_Controller {
 		$this->load->view('footer');
 
 	}
+
 }

@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
     <?= meta('description', '');?>
     <?= meta('author', '');?>
     <?= link_tag('favicon.ico', 'shortcut icon', 'image/ico');?>
-    <title>{blog_title}</title>
+    <title>CMS Lite</title>
 
     <!-- Bootstrap core CSS -->
     <?= link_tag('assets/css/bootstrap.min.css');?>
@@ -33,6 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
         <?= heading('CMS Lite!', 3, 'class="text-muted"');?>
         <nav>
           <ul class="nav nav-justified">
+            <li><?= anchor('', 'Home');?></li>          
           {menuitems}
             <li><?= anchor('{link}', '{title}');?></li>
           {/menuitems}

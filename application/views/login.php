@@ -1,15 +1,18 @@
-<?= validation_errors(); ?>
-
-<?= form_open('index.php/admin','class="form-signin"');?>
-<?= heading('Please sign in', 2, 'class="form-signin-heading"');?>
-<?= form_label('Email address', 'inputEmail', ['class' => 'sr-only']);?>
-<?= form_input(['type' => 'email', 'id' =>'inputEmail', 'class' => 'form-control', 'placeholder' => 'Email address', 'required' => '', 'autofucus' => '']);?>
-<?= form_label('Password', 'inputPassword', ['class' => 'sr-only']);?>
-<?= form_input(['type' => 'password', 'id' =>'inputPassword', 'class' => 'form-control', 'placeholder' => 'Email address', 'required' => '']);?>
-<div class="checkbox">
-  <label>
-    <?= form_checkbox('', 'remember-me');?>Remember me
-  </label>    
-</div>
-<?= form_button(['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit', 'content' => 'Sign in']);?>  
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
+<?= form_open('index.php/login/validate', ['class' => 'form-signin']);?>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <?= form_error('username', '<div class="error">', '</div>'); ?>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="username" id="inputEmail" name="username" class="form-control" placeholder="Username"  autofocus>
+        <?= form_error('password', '<div class="error">', '</div>'); ?>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" >
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 <?= form_close();?>

@@ -11,4 +11,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
           {/blog_entries}                    
       </div>
-    <?= $this->pagination->create_links();?>
+{halaman}
